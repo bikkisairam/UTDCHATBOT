@@ -1,0 +1,15 @@
+# Python
+__pycache__/
+*.py[cod]
+
+# Env
+venv/
+.env
+
+# Data files (LFS will handle them)
+*.pkl
+*.csv
+
+# Editor
+.vscode/
+.idea/
