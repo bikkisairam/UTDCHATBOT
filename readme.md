@@ -1,4 +1,4 @@
-# UT Dallas RAG Chatbot (Notebook Edition)
+# UT Dallas RAG Chatbot 
 
 An end-to-end Retrieval-Augmented Generation (RAG) chatbot for University of Texas at Dallas content, built entirely in a Jupyter/Colab notebook with a Gradio interface.
 
@@ -44,7 +44,7 @@ This notebook demonstrates how to:
 
 5. **Validation**
 
-   - Prepare `validation.csv` (10+ QA pairs)
+   - Prepare `validation.csv` (50 QA pairs)
    - Compute a similarity score (difflib ratio) vs. ground truth
    - Report overall accuracy and low-confidence cases
 
@@ -119,5 +119,5 @@ After running the validation cells, aim for ≥ 90 % accuracy. Use a hybrid stat
 
 ---
 
-*Developed by [Your Name], July 2025*
+*Developed by Sai Ram Bikki, July 2025*
 
