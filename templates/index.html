@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>UTD Chat Assistant</title>
+  <style>
+    /* Reset & base */
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: Arial, sans-serif;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      background: #fff8ec;
+    }
+
+    /* Header */
+    header {
+      background: #d2691e;          /* UTD Orange */
+      color: white;
+      padding: 16px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    header h1 {
+      font-size: 1.25rem;
+      margin-bottom: 2px;
+    }
+    header p {
+      font-size: 0.875rem;
+      opacity: 0.8;
+    }
+
+    /* Chat container */
+    #chat {
+      flex: 1;
+      overflow-y: auto;
+      padding: 16px;
+    }
+    .message {
+      max-width: 70%;
+      margin-bottom: 16px;
+      position: relative;
+      padding: 12px 16px;
+      border-radius: 12px;
+      line-height: 1.4;
+    }
+    .message.user {
+      background: #ffffff;
+      margin-left: auto;
+      border: 1px solid #ccc;
+    }
+    .message.bot {
+      background: white;
+      border: 1px solid #d2691e;
+      color: #333;
+    }
+    .message .timestamp {
+      font-size: 0.75rem;
+      color: #888;
+      position: absolute;
+      bottom: -18px;
+      right: 12px;
+    }
+
+    /* Input bar */
+    .input-bar {
+      display: flex;
+      align-items: center;
+      padding: 12px;
+      border-top: 1px solid #ddd;
+      background: #fff;
+    }
+    .input-bar button, .input-bar input {
+      border: none;
+      outline: none;
+      font-size: 1rem;
+    }
+    .input-bar .icon-btn {
+      background: none;
+      cursor: pointer;
+      padding: 8px;
+      margin-right: 8px;
+      opacity: 0.6;
+    }
+    .input-bar .icon-btn:hover {
+      opacity: 1;
+    }
+    .input-bar input {
+      flex: 1;
+      padding: 8px 12px;
+      border-radius: 20px;
+      border: 1px solid #ccc;
+      margin-right: 8px;
+    }
+    .input-bar .send-btn {
+      background: #d2691e;
+      color: white;
+      border-radius: 50%;
+      width: 36px;
+      height: 36px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+    }
+
+    /* Simple icon styling (you can swap these with <img> tags) */
+    .icon-btn.emoji::before { content: "😊"; font-size: 1.2rem; }
+    .icon-btn.attach::before { content: "📎"; font-size: 1.2rem; }
+    .send-btn::before { content: "✈️"; transform: rotate(45deg); }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div>💬</div>
+    <div>
+      <h1>UTD Chat Assistant</h1>
+      <p>University of Texas at Dallas</p>
+    </div>
+    <div style="margin-left:auto;cursor:pointer;">⚙️</div>
+  </header>
+
+  <div id="chat"></div>
+
+  <div class="input-bar">
+    <button class="icon-btn attach" title="Attach file"></button>
+    <button class="icon-btn emoji" title="Emoji"></button>
+    <input id="message-input" placeholder="Type your message to UTD Chat Assistant..." />
+    <button class="send-btn" id="send-btn"></button>
+  </div>
+
+  <script>
+    const chat = document.getElementById('chat');
+    const input = document.getElementById('message-input');
+    const sendBtn = document.getElementById('send-btn');
+
+    function appendMessage(text, role) {
+      const msg = document.createElement('div');
+      msg.className = 'message ' + role;
+      msg.innerText = text;
+
+      const ts = document.createElement('div');
+      ts.className = 'timestamp';
+      const now = new Date();
+      ts.innerText = now.toLocaleTimeString([], {hour:'2-digit',minute:'2-digit'});
+      msg.appendChild(ts);
+
+      chat.appendChild(msg);
+      chat.scrollTop = chat.scrollHeight;
+    }
+
+    async function sendMessage() {
+      const text = input.value.trim();
+      if (!text) return;
+      appendMessage(text, 'user');
+      input.value = '';
+      // call your /ask endpoint
+      const res = await fetch('/ask', {
+        method: 'POST',
+        headers: {'Content-Type':'application/json'},
+        body: JSON.stringify({ question: text })
+      });
+      const data = await res.json();
+      appendMessage(data.answer, 'bot');
+    }
+
+    sendBtn.addEventListener('click', sendMessage);
+    input.addEventListener('keydown', e => {
+      if (e.key === 'Enter') sendMessage();
+    });
+
+    // Optional: welcome message
+    appendMessage("Hello! Welcome to UTD Chat Assistant. I'm here to help you with information about the University of Texas at Dallas. How can I assist you today?", 'bot');
+  </script>
+
+</body>
+</html>
