@@ -1,0 +1,69 @@
+{
+  "version": 1,
+  "language": "python",
+  "entry_points": {
+    "server": "app.py",
+    "embedding_pipeline": "Embedding.ipynb",
+    "scraping_pipeline": "Scraping and Chunking.ipynb"
+  },
+  "modules": [
+    {
+      "dir": ".",
+      "purpose": "Root directory containing Flask server and Jupyter notebooks for RAG chatbot",
+      "files": [
+        {
+          "path": "app.py",
+          "purpose": "Flask web server providing /ask API endpoint and serving chat UI",
+          "key_symbols": ["app", "retrieve_chunks", "generate_answer", "ask", "home"]
+        },
+        {
+          "path": "requirements.txt",
+          "purpose": "Python dependencies: Flask, OpenAI, FAISS, pandas, numpy, gradio, git-lfs",
+          "key_symbols": []
+        },
+        {
+          "path": "readme.md",
+          "purpose": "Project documentation describing RAG chatbot architecture and usage",
+          "key_symbols": []
+        },
+        {
+          "path": ".gitignore",
+          "purpose": "Excludes __pycache__, venv, .env, *.pkl, *.csv, editor configs",
+          "key_symbols": []
+        },
+        {
+          "path": "unique_links.xls",
+          "purpose": "Excel file containing UTD website URLs to scrape",
+          "key_symbols": []
+        }
+      ]
+    },
+    {
+      "dir": "templates",
+      "purpose": "HTML templates for Flask web UI",
+      "files": [
+        {
+          "path": "templates/index.html",
+          "purpose": "Chat interface HTML with UTD orange branding, message bubbles, and /ask API integration",
+          "key_symbols": ["appendMessage", "sendMessage"]
+        }
+      ]
+    },
+    {
+      "dir": "notebooks",
+      "purpose": "Jupyter notebooks for data pipeline (scraping, chunking, embedding)",
+      "files": [
+        {
+          "path": "Embedding.ipynb",
+          "purpose": "Notebook to batch-embed text chunks using OpenAI text-embedding-ada-002 and build FAISS index",
+          "key_symbols": ["normalize", "retrieve_chunks", "generate_answer"]
+        },
+        {
+          "path": "Scraping and Chunking.ipynb",
+          "purpose": "Notebook to async scrape 4600+ UTD pages, extract text, filter noise, and create chunks",
+          "key_symbols": ["fetch", "scrape_all"]
+        }
+      ]
+    }
+  ]
+}
