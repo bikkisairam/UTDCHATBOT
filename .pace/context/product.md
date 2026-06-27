@@ -1,28 +1,27 @@
 ## Vision
-Purpose: RAG chatbot answering UT Dallas questions using indexed UTD web content
-Users: Students, prospective students, and visitors seeking UTD information
+Purpose: RAG chatbot answering UT Dallas questions from indexed web content
+Users: Prospective/current students, staff, visitors seeking UTD info
 
 ## Target Personas
 | Persona | Pain Point | Goal |
 |---|---|---|
-| Prospective Student | Hard to find accurate UTD program info | Ask questions and get concise answers |
-| Current Student | Need quick campus/policy info | Retrieve trusted UTD details fast |
-| Visitor/Parent | Scattered web pages | Single chat interface for UTD info |
+| Prospective student | Needs quick answers about programs | Get accurate program details |
+| Current student | Finds UTD site info fragmented | Retrieve specific policies/info fast |
+| Visitor | Doesn’t know where to look on UTD site | Ask questions in natural language |
 
 ## MVP Scope
 In Scope:
-- Flask web app with chat UI
-- RAG pipeline with FAISS vector search
-- OpenAI embeddings and GPT-4 answers
-- Indexed UTD content from precomputed embeddings
+- RAG retrieval over UTD web content
+- Chat UI with /ask endpoint
+- GPT-4 answer generation with citations in context
 Out of Scope:
-- User accounts or persistence
-- Live web crawling
-- Admin analytics dashboard
+- User accounts/authentication
+- Admin content management
+- Analytics/telemetry
 
 ## Strategic Constraints
 | Constraint | Reason |
 |---|---|
-| Requires OpenAI API key | Embeddings and GPT-4 calls |
-| Requires precomputed embeddings file | App loads chunks_with_openai_embeddings.pkl on startup |
-| Local data storage | FAISS index built in-memory at startup |
+| OpenAI API key required | Embeddings + GPT-4 calls |
+| Prebuilt embeddings pickle needed | Server loads chunks_with_openai_embeddings.pkl on startup |
+| Data limited to indexed UTD pages | Retrieval from local FAISS index only |
