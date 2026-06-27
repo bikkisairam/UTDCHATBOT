@@ -1,22 +1,22 @@
 ## Sensitive Data
 | Data | Where Stored | Protection |
 |---|---|---|
-| OpenAI API key | app.py (hardcoded placeholder) | Must be provided securely by operator |
-| UTD content embeddings | chunks_with_openai_embeddings.pkl | Local file only |
+| OpenAI API key | app.py client initialization | None in code; should be env var |
+| Indexed content embeddings | chunks_with_openai_embeddings.pkl | File-based, no explicit encryption |
 
 ## Trust Boundaries
 | Caller | Callee | Auth Method |
 |---|---|---|
-| Browser | Flask /ask | None (public endpoint) |
-| Flask | OpenAI API | API key |
+| Browser JS | Flask /ask | None |
+| Flask app | OpenAI API | API key |
 
 ## Security Requirements
-- Do not hardcode real API keys in source files
-- Restrict access to embedding pickle file to trusted hosts
-- Validate/limit request size for /ask
+- Set OpenAI API key via environment variable, not hardcoded
+- Validate and sanitize JSON input for /ask
+- Restrict network exposure if running locally
 
 ## Security Checklist
-API keys stored outside repo: fail
-Authentication on /ask: fail
-Rate limiting on /ask: fail
-Transport security (HTTPS) specified: fail
+OpenAI key hardcoded: fail
+Auth on /ask: fail
+Input validation on /ask: fail
+TLS enforced: unknown
