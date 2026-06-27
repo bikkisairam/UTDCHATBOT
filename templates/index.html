@@ -12,6 +12,12 @@
       display: flex;
       flex-direction: column;
       background: #fff8ec;
+      color: #333;
+    }
+
+    body.dark {
+      background: #121212;
+      color: #f2f2f2;
     }
 
     /* Header */
@@ -23,6 +29,9 @@
       align-items: center;
       gap: 12px;
     }
+    body.dark header {
+      background: #2c2c2c;
+    }
     header h1 {
       font-size: 1.25rem;
       margin-bottom: 2px;
@@ -30,6 +39,15 @@
     header p {
       font-size: 0.875rem;
       opacity: 0.8;
+    }
+    .dark-toggle {
+      margin-left: auto;
+      cursor: pointer;
+      background: none;
+      border: none;
+      color: inherit;
+      font-size: 1.2rem;
+      padding: 6px;
     }
 
     /* Chat container */
@@ -51,10 +69,20 @@
       margin-left: auto;
       border: 1px solid #ccc;
     }
+    body.dark .message.user {
+      background: #1f1f1f;
+      border-color: #3a3a3a;
+      color: #f2f2f2;
+    }
     .message.bot {
       background: white;
       border: 1px solid #d2691e;
       color: #333;
+    }
+    body.dark .message.bot {
+      background: #242424;
+      border-color: #666;
+      color: #f2f2f2;
     }
     .message .timestamp {
       font-size: 0.75rem;
@@ -62,6 +90,9 @@
       position: absolute;
       bottom: -18px;
       right: 12px;
+    }
+    body.dark .message .timestamp {
+      color: #aaa;
     }
 
     /* Input bar */
@@ -71,6 +102,10 @@
       padding: 12px;
       border-top: 1px solid #ddd;
       background: #fff;
+    }
+    body.dark .input-bar {
+      background: #1c1c1c;
+      border-top-color: #333;
     }
     .input-bar button, .input-bar input {
       border: none;
@@ -83,6 +118,7 @@
       padding: 8px;
       margin-right: 8px;
       opacity: 0.6;
+      color: inherit;
     }
     .input-bar .icon-btn:hover {
       opacity: 1;
@@ -94,6 +130,11 @@
       border: 1px solid #ccc;
       margin-right: 8px;
     }
+    body.dark .input-bar input {
+      background: #2a2a2a;
+      border-color: #444;
+      color: #f2f2f2;
+    }
     .input-bar .send-btn {
       background: #d2691e;
       color: white;
@@ -104,6 +145,9 @@
       align-items: center;
       justify-content: center;
       cursor: pointer;
+    }
+    body.dark .input-bar .send-btn {
+      background: #c65f1b;
     }
 
     /* Simple icon styling (you can swap these with <img> tags) */
@@ -120,7 +164,7 @@
       <h1>UTD Chat Assistant</h1>
       <p>University of Texas at Dallas</p>
     </div>
-    <div style="margin-left:auto;cursor:pointer;">⚙️</div>
+    <button class="dark-toggle" id="dark-toggle" title="Toggle dark mode">🌙</button>
   </header>
 
   <div id="chat"></div>
@@ -136,6 +180,7 @@
     const chat = document.getElementById('chat');
     const input = document.getElementById('message-input');
     const sendBtn = document.getElementById('send-btn');
+    const darkToggle = document.getElementById('dark-toggle');
 
     function appendMessage(text, role) {
       const msg = document.createElement('div');
@@ -151,6 +196,23 @@
       chat.appendChild(msg);
       chat.scrollTop = chat.scrollHeight;
     }
+
+    function setDarkMode(enabled) {
+      document.body.classList.toggle('dark', enabled);
+      darkToggle.innerText = enabled ? '☀️' : '🌙';
+    }
+
+    const storedTheme = localStorage.getItem('theme');
+    const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+    const shouldUseDark = storedTheme === 'dark' || (!storedTheme && prefersDark);
+    setDarkMode(shouldUseDark);
+
+    darkToggle.addEventListener('click', () => {
+      const isDark = document.body.classList.contains('dark');
+      const nextMode = !isDark;
+      setDarkMode(nextMode);
+      localStorage.setItem('theme', nextMode ? 'dark' : 'light');
+    });
 
     async function sendMessage() {
       const text = input.value.trim();
