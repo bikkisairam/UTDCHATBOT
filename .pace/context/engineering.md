@@ -1,7 +1,7 @@
 ---
 language: python
 package_manager: pip
-test_runner: none
+test_runner: N/A
 test_command: N/A
 test_file_pattern: N/A
 require_tests: false
@@ -9,43 +9,42 @@ require_tests: false
 ## Module Map
 | Directory | Language | Purpose |
 |---|---|---|
-| . | Python | Flask RAG server, notebooks, data, config |
-| templates/ | HTML/CSS/JS | Web chat UI |
+| . | Python | Flask RAG API server and notebooks |
+| templates/ | HTML/CSS/JS | Web chat UI template |
 
 ## Tech Stack
 | Component | Technology |
 |---|---|
-| Backend | Flask |
-| RAG | FAISS, OpenAI embeddings/chat |
-| Data | Pandas, NumPy, pickle DataFrame |
-| Frontend | HTML, CSS, Vanilla JS |
+| Backend API | Flask |
+| Vector Search | FAISS (IndexFlatIP) |
+| Embeddings | OpenAI text-embedding-ada-002 |
+| LLM | OpenAI GPT-4 |
+| Data | Pandas DataFrame pickle |
+| Frontend | Vanilla HTML/CSS/JS |
 
 ## System Architecture
-| Step | Interaction |
+| Flow | Details |
 |---|---|
-| UI → API | Browser sends POST /ask with JSON {question} |
-| API → Retrieval | app.py embeds query, FAISS top-k search over embeddings |
-| API → LLM | OpenAI GPT-4 generates answer from retrieved context |
-| API → UI | JSON {answer} response |
+| Startup | app.py loads chunks_with_openai_embeddings.pkl, builds FAISS index |
+| Query | /ask -> generate_answer -> retrieve_chunks -> OpenAI embeddings + FAISS search |
+| Response | GPT-4 chat completion with retrieved context |
+| UI | templates/index.html calls /ask via fetch |
 
 ## Key Interfaces & Contracts
-| Interface | Contract |
-|---|---|
-| GET / | Renders templates/index.html |
-| POST /ask | Request: {question: string} → Response: {answer: string} |
-| Data file | chunks_with_openai_embeddings.pkl with columns url, section, chunk_id, text, embedding |
-| OpenAI | model=text-embedding-ada-002, model=gpt-4 |
+| Interface | Type | Details |
+|---|---|---|
+| GET / | HTTP | Renders templates/index.html |
+| POST /ask | HTTP JSON | Request: {"question": "..."}; Response: {"answer": "..."} |
+| chunks_with_openai_embeddings.pkl | Data file | Columns: url, section, chunk_id, text, embedding |
 
 ## Coding Conventions
-| Area | Convention |
+| Topic | Convention |
 |---|---|
 | Functions | snake_case (normalize, retrieve_chunks, generate_answer) |
-| Errors | no explicit handling; exceptions bubble |
-| Globals | index and df created at import/startup |
+| Flask | app = Flask(__name__), route decorators |
+| Embedding normalization | L2 normalization before FAISS search |
 
 ## Test Patterns
-| Aspect | Details |
+| Area | Status |
 |---|---|
-| Test framework | none detected |
-| Test location | N/A |
-| Execution | N/A |
+| Automated tests | None detected |
