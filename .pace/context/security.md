@@ -1,23 +1,22 @@
 ## Sensitive Data
 | Data | Where Stored | Protection |
 |---|---|---|
-| OpenAI API key | app.py in code (client = OpenAI(api_key=...)) | None in repo; should use env var |
-| UTD content chunks | chunks_with_openai_embeddings.pkl | Local file, no encryption noted |
+| OpenAI API key | app.py (hardcoded string) | None in code; should use env var |
+| UTD content embeddings | chunks_with_openai_embeddings.pkl | Local file only |
 
 ## Trust Boundaries
 | Caller | Callee | Auth Method |
 |---|---|---|
-| Browser | Flask /ask | None |
-| Flask | OpenAI API | API key |
+| Browser UI | Flask /ask | None |
+| Flask app | OpenAI API | API key in client |
 
 ## Security Requirements
-- Use environment variable for OpenAI API key
-- Validate JSON input for /ask
-- Avoid exposing internal file paths in errors
-- Run server without debug in production
+- Use environment variable for OPENAI_API_KEY
+- Do not log user queries with PII
+- Validate /ask input is JSON with question string
+- Restrict model access keys to required scopes
 
 ## Security Checklist
-OpenAI API key not hardcoded: fail
-/ask input validation: fail
-HTTPS enforced: fail
-Debug mode disabled: fail
+- [fail] API key is hardcoded in app.py
+- [fail] No input validation on /ask
+- [pass] Uses POST for queries
