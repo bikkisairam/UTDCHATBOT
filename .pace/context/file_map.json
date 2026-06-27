@@ -1,0 +1,56 @@
+{
+  "version": 1,
+  "language": "python",
+  "entry_points": {
+    "server": "app.py"
+  },
+  "modules": [
+    {
+      "dir": ".",
+      "purpose": "Flask RAG server, notebooks, and configuration",
+      "files": [
+        {
+          "path": "app.py",
+          "purpose": "Flask app serving chat UI and RAG /ask endpoint with FAISS retrieval",
+          "key_symbols": ["normalize", "retrieve_chunks", "generate_answer", "home", "ask"]
+        },
+        {
+          "path": "requirements.txt",
+          "purpose": "Python dependencies for Flask, OpenAI, FAISS, data tooling",
+          "key_symbols": []
+        },
+        {
+          "path": "readme.md",
+          "purpose": "Project overview, RAG pipeline description, setup guidance",
+          "key_symbols": []
+        },
+        {
+          "path": "Embedding.ipynb",
+          "purpose": "Notebook for embedding and indexing workflow",
+          "key_symbols": []
+        },
+        {
+          "path": "Scraping and Chunking.ipynb",
+          "purpose": "Notebook for scraping and chunking UTD pages",
+          "key_symbols": []
+        },
+        {
+          "path": "unique_links.xls",
+          "purpose": "Spreadsheet of source URLs for scraping",
+          "key_symbols": []
+        }
+      ]
+    },
+    {
+      "dir": "templates",
+      "purpose": "Frontend chat UI template",
+      "files": [
+        {
+          "path": "templates/index.html",
+          "purpose": "Chat UI with JS calling /ask endpoint",
+          "key_symbols": ["appendMessage", "sendMessage"]
+        }
+      ]
+    }
+  ]
+}
