@@ -7,48 +7,58 @@
   "modules": [
     {
       "dir": ".",
-      "purpose": "Flask RAG server, notebooks, and project files",
+      "purpose": "Flask RAG server, notebooks, and data artifacts",
       "files": [
         {
           "path": "app.py",
-          "purpose": "Flask app serving chat UI and /ask RAG endpoint",
-          "key_symbols": ["normalize", "retrieve_chunks", "generate_answer", "home", "ask"]
-        },
-        {
-          "path": "requirements.txt",
-          "purpose": "Python dependencies",
-          "key_symbols": []
+          "purpose": "Flask server for retrieval-augmented QA using FAISS and OpenAI",
+          "key_symbols": [
+            "normalize",
+            "retrieve_chunks",
+            "generate_answer",
+            "home",
+            "ask"
+          ]
         },
         {
           "path": "readme.md",
-          "purpose": "Project overview and notebook workflow",
+          "purpose": "Project overview and notebook-based RAG pipeline description",
+          "key_symbols": []
+        },
+        {
+          "path": "requirements.txt",
+          "purpose": "Python dependencies list",
           "key_symbols": []
         },
         {
           "path": "Embedding.ipynb",
-          "purpose": "Notebook for embedding and indexing workflow",
+          "purpose": "Notebook for embedding workflow",
           "key_symbols": []
         },
         {
           "path": "Scraping and Chunking.ipynb",
-          "purpose": "Notebook for scraping and chunking UTD pages",
+          "purpose": "Notebook for scraping and chunking UTD content",
           "key_symbols": []
         },
         {
           "path": "unique_links.xls",
-          "purpose": "Spreadsheet of UTD links",
+          "purpose": "Spreadsheet of collected links",
           "key_symbols": []
         }
       ]
     },
     {
       "dir": "templates",
-      "purpose": "HTML/CSS/JS frontend template",
+      "purpose": "HTML/JS/CSS chat interface",
       "files": [
         {
           "path": "templates/index.html",
-          "purpose": "Chat UI with fetch to /ask endpoint",
-          "key_symbols": []
+          "purpose": "Single-page chat UI calling /ask",
+          "key_symbols": [
+            "appendMessage",
+            "setDarkMode",
+            "sendMessage"
+          ]
         }
       ]
     }
