@@ -2,31 +2,22 @@
   "version": 1,
   "language": "python",
   "entry_points": {
-    "server": "app.py"
+    "server": "app.py",
+    "ui": "templates/index.html"
   },
   "modules": [
     {
       "dir": ".",
-      "purpose": "Flask RAG server, notebooks, and configuration",
+      "purpose": "Flask RAG server and notebooks",
       "files": [
         {
           "path": "app.py",
-          "purpose": "Flask app serving chat UI and RAG /ask endpoint with FAISS retrieval",
+          "purpose": "Flask API serving RAG chatbot endpoints",
           "key_symbols": ["normalize", "retrieve_chunks", "generate_answer", "home", "ask"]
         },
         {
-          "path": "requirements.txt",
-          "purpose": "Python dependencies for Flask, OpenAI, FAISS, data tooling",
-          "key_symbols": []
-        },
-        {
-          "path": "readme.md",
-          "purpose": "Project overview, RAG pipeline description, setup guidance",
-          "key_symbols": []
-        },
-        {
           "path": "Embedding.ipynb",
-          "purpose": "Notebook for embedding and indexing workflow",
+          "purpose": "Notebook for embedding pipeline",
           "key_symbols": []
         },
         {
@@ -35,19 +26,24 @@
           "key_symbols": []
         },
         {
-          "path": "unique_links.xls",
-          "purpose": "Spreadsheet of source URLs for scraping",
+          "path": "requirements.txt",
+          "purpose": "Python dependencies",
+          "key_symbols": []
+        },
+        {
+          "path": "readme.md",
+          "purpose": "Project overview and setup notes",
           "key_symbols": []
         }
       ]
     },
     {
       "dir": "templates",
-      "purpose": "Frontend chat UI template",
+      "purpose": "HTML UI template for chat",
       "files": [
         {
           "path": "templates/index.html",
-          "purpose": "Chat UI with JS calling /ask endpoint",
+          "purpose": "Web chat UI calling /ask endpoint",
           "key_symbols": ["appendMessage", "sendMessage"]
         }
       ]
