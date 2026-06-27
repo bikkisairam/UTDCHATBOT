@@ -1,16 +1,16 @@
 ## CI/CD
 | Trigger | Workflow | Jobs |
 |---|---|---|
-| N/A | None found | None |
+| None detected | None | None |
 
 ## Environment Variables
 | Name | Required | Purpose |
 |---|---|---|
-| OPENAI_API_KEY | Yes | OpenAI API authentication (used by OpenAI client) |
+| OPENAI_API_KEY | Yes | OpenAI embeddings + chat |
 
 ## Local Dev
 1. pip install -r requirements.txt
 2. python app.py
 
 ## Deployment
-Deploy: Run Flask app (app.py) on a host with access to chunks_with_openai_embeddings.pkl
+Deploy: flask app via python app.py (host 0.0.0.0 port 8000)
