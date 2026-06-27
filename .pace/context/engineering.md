@@ -2,50 +2,50 @@
 language: python
 package_manager: pip
 test_runner: none
-test_command: none
-test_file_pattern: none
+test_command: ""
+test_file_pattern: ""
 require_tests: false
 ---
 ## Module Map
 | Directory | Language | Purpose |
 |---|---|---|
-| . | Python | Flask app, data files, notebooks |
-| templates/ | HTML/JS/CSS | Chat UI template |
+| . | Python | Flask RAG server, notebooks, data files |
+| templates | HTML/JS/CSS | Chat UI template |
 
 ## Tech Stack
 | Component | Technology |
 |---|---|
 | Backend | Flask |
-| RAG Retrieval | FAISS, NumPy, pandas |
-| LLM/Embeddings | OpenAI API (gpt-4, text-embedding-ada-002) |
-| Frontend | HTML, CSS, Vanilla JS |
-| Notebooks | Jupyter (.ipynb) |
+| RAG Index | FAISS IndexFlatIP |
+| Embeddings | OpenAI text-embedding-ada-002 |
+| LLM | OpenAI GPT-4 |
+| Data | pandas DataFrame, pickle |
+| UI | HTML/CSS/JS (vanilla) |
 
 ## System Architecture
-| Step | Component | Interaction |
-|---|---|---|
-| 1 | Browser | Loads / (index.html) |
-| 2 | Browser → Flask | POST /ask with question JSON |
-| 3 | Flask | Embeds query, searches FAISS index |
-| 4 | Flask → OpenAI | Chat completion with context |
-| 5 | Flask → Browser | JSON response {answer} |
+| Flow | Details |
+|---|---|
+| Startup | app.py loads chunks_with_openai_embeddings.pkl, normalizes vectors, builds FAISS index |
+| Query | /ask POST -> generate_answer -> retrieve_chunks -> OpenAI embeddings + FAISS search |
+| Response | GPT-4 completion built from retrieved context -> JSON {answer} -> browser UI |
 
 ## Key Interfaces & Contracts
-| Interface | Method | Input | Output |
-|---|---|---|---|
-| / | GET | none | HTML page |
-| /ask | POST | JSON {question: string} | JSON {answer: string} |
-| Data file | N/A | chunks_with_openai_embeddings.pkl | DataFrame with url, section, chunk_id, text, embedding |
+| Interface | Input | Output |
+|---|---|---|
+| POST /ask | JSON {question:string} | JSON {answer:string} |
+| GET / | None | templates/index.html |
+| DataFrame schema | url, section, chunk_id, text, embedding(np.array) | Used by retrieval |
 
 ## Coding Conventions
-| Item | Convention |
+| Area | Convention |
 |---|---|
-| Functions | snake_case (normalize, retrieve_chunks, generate_answer) |
-| API | Flask route decorators |
-| Vector search | L2-normalize then FAISS IndexFlatIP |
+| Functions | snake_case (normalize, retrieve_chunks) |
+| Responses | Flask jsonify for JSON |
+| Prompting | Context + question, bullet format instruction |
 
 ## Test Patterns
-| Item | Details |
+| Aspect | Status |
 |---|---|
-| Tests | None detected |
-| Runner | none |
+| Test framework | None detected |
+| Test files | None detected |
+| Execution | N/A |
