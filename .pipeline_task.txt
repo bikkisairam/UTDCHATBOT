@@ -1,0 +1,14 @@
+[Golden path] Add GOLDEN_PATH_PROOF.md (live Linear ? PR)
+
+## Golden-path live proof ([ENG-181](https://linear.app/national-datacare/issue/ENG-181/p1-prove-golden-path-linear-pipeline-pr-linear-comment))
+
+Repo: `bikkisairam/UTDCHATBOT`
+
+Please create a new file `GOLDEN_PATH_PROOF.md` at the repo root with exactly these two lines:
+
+```
+# Golden path proof
+Triggered from Linear issue via NDC-Orchestrator label (ENG-181).
+```
+
+Do not modify other files.
