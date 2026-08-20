@@ -1,3 +1,5 @@
+<!-- Added by the orchestration platform golden-path test -->
+
 # UT Dallas RAG Chatbot 
 
 An end-to-end Retrieval-Augmented Generation (RAG) chatbot for University of Texas at Dallas content, built entirely in a Jupyter/Colab notebook with a Gradio interface.
@@ -67,57 +69,3 @@ This notebook demonstrates how to:
 ## 🛠️ Installation
 
 In your notebook or Colab:
-
-```bash
-!pip install openai faiss-cpu pandas numpy gradio
-```
-
----
-
-## ⚙️ Configuration
-
-```python
-import os
-os.environ["OPENAI_API_KEY"] = "sk-…"   # set your key
-```
-
----
-
-## 📓 Notebook Outline
-
-1. **Imports & Data Load**
-2. **Chunking function** (`heading_sliding_chunker`)
-3. **Batch embedding** with progress prints
-4. **FAISS index build**
-5. `** + **`
-6. **Validation** on `validation.csv`
-7. **Gradio Blocks UI**
-   ```python
-   with gr.Blocks() as demo:
-       gr.Markdown("## 🎓 UT Dallas RAG Chatbot")
-       chatbot = gr.Chatbot()
-       txt = gr.Textbox(placeholder="Ask me about UTD…")
-       clear = gr.Button("Clear")
-       txt.submit(chat_interface, [txt, chatbot], [chatbot, chatbot])
-       clear.click(lambda: [], None, chatbot)
-   demo.launch()
-   ```
-
----
-
-## 📈 Validation
-
-After running the validation cells, aim for ≥ 90 % accuracy. Use a hybrid static-KB fallback for core facts (e.g. president name, address) to guarantee 100 % on those.
-
----
-
-## 🎯 Next Steps
-
-- Swap GPT-4 for a local model (Mistral-7B) if desired.
-- Add BM25 hybrid retrieval for exact-match queries.
-- Publish as a Colab link for easy sharing.
-
----
-
-*Developed by Sai Ram Bikki, July 2025*
-
