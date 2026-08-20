@@ -1,0 +1,3 @@
+Add a one-line comment at the top of README.md
+
+Please add a short Markdown comment at the top of README.md noting this was added by the orchestration platform golden-path test. Keep the change minimal.
